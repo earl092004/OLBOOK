@@ -116,7 +116,7 @@
         </form>
 
         <div class="signup-link">
-            <p>Don't have an account? <a href="">Sign Up</a></p>
+            <p>Don't have an account? <a href="{{ route('users.create') }}">Sign Up</a></p>
         </div>
     </div>
 </body>

@@ -1,29 +1,33 @@
 @extends('components.layouts')
 
 @section('content')
-<div class="container mt-4">
-    <h1 class="text-center mb-4">Users List</h1>
-
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
+<div class="container mt-5">
+    <h1 class="text-center">Users List</h1>
+    <table class="table table-bordered mt-4">
+        <thead>
             <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
+                <th>Subscription Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $user)
+            @foreach ($users as $user)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->role }}</td>
+                <td>{{ ucfirst($user->subscription_type) }}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-primary me-2">Edit</a>
-                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">View</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
